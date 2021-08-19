@@ -3,8 +3,15 @@ from bs4 import BeautifulSoup
     
 def dictionary(url):
     """
-    Funkcja zwraca słownik postaci {kod_waluty:[nazwa_waluty, kurs_średni]},
-    za argument przyjmuje zawartość pliku typu xml pobranego ze strony nbp
+    Function that takes data from xml file and makes a dictionary
+
+    args:
+    -----
+    url - a content of a xml file: exchange_rates.xml (string)
+
+    returns
+    -------
+    dictionary: {currency_code:[currency_name, currency_rate]}
     """
     soup = BeautifulSoup(url, "lxml")
     names = soup("currency")
@@ -29,36 +36,43 @@ def dictionary(url):
 
     return dictionary
 
-#gdy wystąpi błąd przy pobieraniu aktualnych kursów walut (np. brak dostępu do internetu),
-#program użyje danych z ostatnio pobranej tabeli
-#jeśli nie nastąpi błąd program pobierze dane bezpośrednio ze strony nbp i nadpisze plik xml
+
+# download of actual currency rates
 try:
     r = requests.get("https://api.nbp.pl/api/exchangerates/tables/A/?format=xml")
     d = dictionary(r.text)
-    with open("kursy_walut.xml", "wb") as f:
+    with open("exchange_rates.xml", "wb") as f:
         f.write(r.content)
 except:
-    with open("kursy_walut.xml") as f:
+    with open("exchange_rates.xml") as f:
         d = dictionary(f.read())
 
 class Currency:
 
-    def __init__(self, c):
+    def __init__(self, code):
         """
-        Tworzy wlutę o konkretnym kodzie, nazwie i kursie średnim,
-        wykorzystuje do tego wcześniej utworzony słownik,
-        za argumnet przyjmuje kod waluty
-        """
-        self.c = c
-        self.n = d[self.c][0]
-        self.r = d[self.c][1]
+        Initializes a currency with with a specific code, name and rate.
+        Uses a dictionary created before.
 
-    def converter(self, currency, x):
+        args:
+        -----
+        code - currency code
         """
-        Funkcja przelicza podaną kwotę (arument x)
-        z waluty źródłowej, na docelową (argument currency)
+        self.code = code
+        self.name = d[self.code][0]
+        self.rate = d[self.code][1]
+
+    def converter(self, currency, amount):
         """
-        if type(x) == int or type(x) == float:
-            return round((self.r/currency.r) * x, 2)
+        Funcion that convert an amount 
+        from a source currency into a target currency.
+
+        args:
+        -----
+        currency - target currency (an object from the class Currency)
+        amount - the amount we want to convert (float)
+        """
+        if type(amount) == int or type(amount) == float:
+            return round((self.rate/currency.rate) * amount, 2)
         else:
-            raise("Podana wartość musi być liczbą!")
+            raise("The amount given must be a number!")

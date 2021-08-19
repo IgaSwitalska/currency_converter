@@ -1,43 +1,48 @@
 from tkinter import *
 import tkinter.ttk as ttk
-from waluta_program import *
+from currency_program import *
     
 def convert():
-    """
-    Funkcja przelicza kwotę podaną przez użytkownika
-    z waluty źródłowej na docelową
-    (również wybranych przez użytkownka)
-    """
+    """Function that convert one currency into another"""
     try:
-        w1 = Currency(cb_value1.get()) #waluta źródłowa
-        w2 = Currency(cb_value2.get()) #waluta docelowa
-        cb_value3.set((w1.converter(w2, float(amount.get())))) #wypisanie wyniku
+        source_currency = Currency(cb_value1.get())
+        target_currency = Currency(cb_value2.get())
+        cb_value3.set((source_currency.converter(target_currency, float(amount.get())))) # writing the result
     except ValueError:
-        cb_value3.set("Podana wartość musi być liczbą!")
+        cb_value3.set("The amount given must be a number!")
     except KeyError:
-        cb_value3.set("Brak odpowiednich danych!")
+        cb_value3.set("No appropriate data!")
 
 def sourceCurrency(event):
-    """Komenda wywołana po wybraniu waluty źródłowej, zwraca kod waluty"""
+    """ 
+    Command issued after selecting the source currency, 
+    
+    returns
+    -------
+    currency code
+    """
     return(cb_value1.get())
 
 def targetCurrency(event):
-    """Komenda wywołana po wybraniu waluty docelowej, zwraca kod kaluty"""
+    """ 
+    Command issued after selecting the target currency, 
+    
+    returns
+    -------
+    currency code
+    """
     return(cb_value2.get())
 
-#stworzenie okienka, o określonym tytule i wymiarach
+# creating a window and setting a title and dimentions
 root = Tk()
-root.title("Przelicznik walut")
+root.title("Currency converter")
 root.geometry('400x200')
 
-#stworzenie dwóch etykiet (dla waluty źródłowej i docelowej)
-currency1_label = Label(root, text="waluta źródłowa")
-currency1_label.grid(row=0, column=0, padx=2)
+# creating two labels (for the source and target currency)
+Label(root, text="source currency").grid(row=0, column=0, padx=2)
+Label(root, text="target currency").grid(row=0, column=1, padx=2)
 
-currency2_label = Label(root, text="waluta docelowa")
-currency2_label.grid(row=0, column=1, padx=2)
-
-#stworzenie dwóch list rozwijanych (dla waluty źródłowej i docelowej)
+# creating two comboboxes (for the source and target currency)
 cb_value1 = StringVar()
 combobox1 = ttk.Combobox(root, textvariable = cb_value1)
 combobox1.grid(row=1, column=0, padx=2)
@@ -52,26 +57,25 @@ combobox2['values'] = (list(d.keys()))
 
 combobox2.bind("<<ComboboxSelected>>", targetCurrency)
 
-#stworzeine etykiety
-label = Label(root, text="Podaj kwotę w walucie źródłowej:")
-label.grid(row=2, column=0,  padx=2, pady=6)
+# creating a label
+Label(root, text="Enter the amount in the source currency:").grid(row=2, column=0,  padx=2, pady=6)
 
-#storzenie pola do wpisania kwoty w walucie źródłowej
+# creating a space to write an amount
 amount = Entry(root)
 amount.grid(row=2, column=1)
 
-#stworzeine etykiety
-result_label = Label(root, text="Kwota w walucie docelowej:")
+# creatind a label
+result_label = Label(root, text="Amount in a target currency:")
 result_label.grid(row=3, column=0, padx=2)
 
-#storzenie pola, gdzie będzie się wyświetlać wynik
+# creating a space, where the result will appear
 cb_value3 = StringVar()
 result = Label(root, textvariable = cb_value3)
 result.grid(row=3, column=1)
 
-#stworzenie dwóch przycisków (uruchamiający obliczenia i kończący program)
-btn1 = Button(root, text="Przelicz", command=convert)
-btn2 = Button(root, text="Koniec", command=quit)
+# creating two bottons
+btn1 = Button(root, text="Convert", command=convert)
+btn2 = Button(root, text="Close", command=quit)
 btn1.place(x=155, y=110)
 btn2.place(x=155, y=150)
 
