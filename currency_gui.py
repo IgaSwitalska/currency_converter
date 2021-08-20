@@ -33,51 +33,58 @@ def targetCurrency(event):
     """
     return(cb_value2.get())
 
+bg_color = "#8ebbde"
+text_font = "Courier"
+
 # creating a window and setting a title and dimentions
 root = Tk()
-root.title("Currency converter")
-root.geometry('400x200')
+root.title('Currency converter')
+root.geometry('550x350')
+root.configure(bg=bg_color)
+
+Label(root,text='Currency converter', background=bg_color, font=(text_font,30)).place(x=40,y=10)
 
 # creating two labels (for the source and target currency)
-Label(root, text="source currency").grid(row=0, column=0, padx=2)
-Label(root, text="target currency").grid(row=0, column=1, padx=2)
+Label(root, text="source currency", background=bg_color, font=(text_font,15)).place(x=40,y=70)
+Label(root, text="target currency", background=bg_color, font=(text_font,15)).place(x=280,y=70)
 
 # creating two comboboxes (for the source and target currency)
 cb_value1 = StringVar()
 combobox1 = ttk.Combobox(root, textvariable = cb_value1)
-combobox1.grid(row=1, column=0, padx=2)
+combobox1.place(x=60,y=100)
 combobox1['values'] = (list(d.keys()))
 
 combobox1.bind("<<ComboboxSelected>>", sourceCurrency)
 
 cb_value2 = StringVar()
 combobox2 = ttk.Combobox(root, textvariable = cb_value2)
-combobox2.grid(row=1, column=1)
+combobox2.place(x=300,y=100)
 combobox2['values'] = (list(d.keys()))
 
 combobox2.bind("<<ComboboxSelected>>", targetCurrency)
 
 # creating a label
-Label(root, text="Enter the amount in the source currency:").grid(row=2, column=0,  padx=2, pady=6)
+Label(root, text="Enter the amount in the source currency:", background=bg_color, font=(text_font,10)).place(x=10,y=130)
 
 # creating a space to write an amount
 amount = Entry(root)
-amount.grid(row=2, column=1)
+amount.place(x=350,y=130)
 
 # creatind a label
-result_label = Label(root, text="Amount in a target currency:")
-result_label.grid(row=3, column=0, padx=2)
+result_label = Label(root, text="Amount in a target currency:", background=bg_color, font=(text_font,10))
+result_label.place(x=10,y=160)
 
 # creating a space, where the result will appear
 cb_value3 = StringVar()
-result = Label(root, textvariable = cb_value3)
-result.grid(row=3, column=1)
+result = Label(root, textvariable = cb_value3, background=bg_color, font=(text_font,10,"bold"))
+result.place(x=280,y=160)
 
 # creating two bottons
-btn1 = Button(root, text="Convert", command=convert)
-btn2 = Button(root, text="Close", command=quit)
-btn1.place(x=155, y=110)
-btn2.place(x=155, y=150)
+btn1 = Button(root, text="Convert", command=convert, bg="#cc7fe3", activebackground="#d4abe0", font=(text_font,10), 	
+height=2, width=10)
+btn2 = Button(root, text="Close", command=quit, bg="#e3789e", activebackground="#db91ab", font=(text_font,10),height=2, width=8)
+btn1.place(x=215, y=200)
+btn2.place(x=220, y=260)
 
 
 root.mainloop()
