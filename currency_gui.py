@@ -88,7 +88,7 @@ result_label.place(x=10,y=160)
 # creating a space, where the result will appear
 cb_value3 = StringVar()
 result = Label(root, textvariable = cb_value3, background=bg_color, font=(text_font,10,"bold"))
-result.place(x=280,y=160)
+result.place(x=300,y=160)
 
 # creating two buttons
 btn1 = Button(root, text="Convert", command=convert, bg="#cc7fe3", activebackground="#d4abe0", font=(text_font,10), height=2, width=15)
