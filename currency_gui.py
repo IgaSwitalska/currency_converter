@@ -3,7 +3,7 @@ import tkinter.ttk as ttk
 from currency_program import *
     
 def convert():
-    """Function that convert one currency into another"""
+    """The function that converts one currency into another"""
     try:
         source_currency = Currency(cb_value1.get().split(" ")[0])
         target_currency = Currency(cb_value2.get().split(" ")[0])
@@ -15,7 +15,7 @@ def convert():
 
 def sourceCurrency(event):
     """ 
-    Command issued after selecting the source currency, 
+    The command issued after selecting the source currency, 
     
     returns
     -------
@@ -25,7 +25,7 @@ def sourceCurrency(event):
 
 def targetCurrency(event):
     """ 
-    Command issued after selecting the target currency, 
+    The command issued after selecting the target currency, 
     
     returns
     -------
@@ -34,6 +34,10 @@ def targetCurrency(event):
     return(cb_value2.get())
 
 def rotation():
+    """
+    The function that switches the source currency 
+    with the target currency and inversely.
+    """
     source = cb_value1.get()
     target = cb_value2.get()
 
@@ -78,7 +82,7 @@ amount = Entry(root)
 amount.place(x=350,y=130)
 
 # creatind a label
-result_label = Label(root, text="Amount in a target currency:", background=bg_color, font=(text_font,10))
+result_label = Label(root, text="The amount in the target currency:", background=bg_color, font=(text_font,10))
 result_label.place(x=10,y=160)
 
 # creating a space, where the result will appear

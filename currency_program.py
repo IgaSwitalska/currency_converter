@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
     
 def dictionary(url):
     """
-    Function that takes data from xml file and makes a dictionary
+    The function that takes data from xml file and makes a dictionary
 
     args:
     -----
@@ -51,7 +51,7 @@ class Currency:
 
     def __init__(self, code):
         """
-        Initializes a currency with with a specific code, name and rate.
+        Initializes a currency with a specific code, name and rate.
         Uses a dictionary created before.
 
         args:
@@ -64,8 +64,8 @@ class Currency:
 
     def converter(self, currency, amount):
         """
-        Funcion that convert an amount 
-        from a source currency into a target currency.
+        The function that convert the amount 
+        from the source currency into the target currency.
 
         args:
         -----
