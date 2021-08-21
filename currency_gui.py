@@ -5,8 +5,8 @@ from currency_program import *
 def convert():
     """Function that convert one currency into another"""
     try:
-        source_currency = Currency(cb_value1.get())
-        target_currency = Currency(cb_value2.get())
+        source_currency = Currency(cb_value1.get().split(" ")[0])
+        target_currency = Currency(cb_value2.get().split(" ")[0])
         cb_value3.set((source_currency.converter(target_currency, float(amount.get())))) # writing the result
     except ValueError:
         cb_value3.set("The amount given must be a number!")
@@ -39,27 +39,27 @@ text_font = "Courier"
 # creating a window and setting a title and dimentions
 root = Tk()
 root.title('Currency converter')
-root.geometry('550x350')
+root.geometry('650x350')
 root.configure(bg=bg_color)
 
-Label(root,text='Currency converter', background=bg_color, font=(text_font,30)).place(x=40,y=10)
+Label(root,text='Currency converter', background=bg_color, font=(text_font,30)).place(x=90,y=10)
 
 # creating two labels (for the source and target currency)
-Label(root, text="source currency", background=bg_color, font=(text_font,15)).place(x=40,y=70)
-Label(root, text="target currency", background=bg_color, font=(text_font,15)).place(x=280,y=70)
+Label(root, text="source currency", background=bg_color, font=(text_font,15)).place(x=70,y=70)
+Label(root, text="target currency", background=bg_color, font=(text_font,15)).place(x=370,y=70)
 
 # creating two comboboxes (for the source and target currency)
 cb_value1 = StringVar()
-combobox1 = ttk.Combobox(root, textvariable = cb_value1)
-combobox1.place(x=60,y=100)
-combobox1['values'] = (list(d.keys()))
+combobox1 = ttk.Combobox(root, textvariable = cb_value1, width=40)
+combobox1.place(x=30,y=100)
+combobox1['values'] = ["{} - {}".format(currency, d[currency][0]) for currency in  d.keys()]
 
 combobox1.bind("<<ComboboxSelected>>", sourceCurrency)
 
 cb_value2 = StringVar()
-combobox2 = ttk.Combobox(root, textvariable = cb_value2)
-combobox2.place(x=300,y=100)
-combobox2['values'] = (list(d.keys()))
+combobox2 = ttk.Combobox(root, textvariable = cb_value2, width=40)
+combobox2.place(x=330,y=100)
+combobox2['values'] = ["{} - {}".format(currency, d[currency][0]) for currency in  d.keys()]
 
 combobox2.bind("<<ComboboxSelected>>", targetCurrency)
 
@@ -81,10 +81,10 @@ result.place(x=280,y=160)
 
 # creating two bottons
 btn1 = Button(root, text="Convert", command=convert, bg="#cc7fe3", activebackground="#d4abe0", font=(text_font,10), 	
-height=2, width=10)
+height=2, width=15)
 btn2 = Button(root, text="Close", command=quit, bg="#e3789e", activebackground="#db91ab", font=(text_font,10),height=2, width=8)
-btn1.place(x=215, y=200)
-btn2.place(x=220, y=260)
+btn1.place(x=255, y=200)
+btn2.place(x=280, y=260)
 
 
 root.mainloop()
