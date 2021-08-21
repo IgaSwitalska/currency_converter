@@ -33,6 +33,13 @@ def targetCurrency(event):
     """
     return(cb_value2.get())
 
+def rotation():
+    source = cb_value1.get()
+    target = cb_value2.get()
+
+    cb_value1.set(target)
+    cb_value2.set(source)
+
 bg_color = "#8ebbde"
 text_font = "Courier"
 
@@ -45,20 +52,20 @@ root.configure(bg=bg_color)
 Label(root,text='Currency converter', background=bg_color, font=(text_font,30)).place(x=90,y=10)
 
 # creating two labels (for the source and target currency)
-Label(root, text="source currency", background=bg_color, font=(text_font,15)).place(x=70,y=70)
-Label(root, text="target currency", background=bg_color, font=(text_font,15)).place(x=370,y=70)
+Label(root, text="source currency", background=bg_color, font=(text_font,15)).place(x=50,y=70)
+Label(root, text="target currency", background=bg_color, font=(text_font,15)).place(x=400,y=70)
 
 # creating two comboboxes (for the source and target currency)
 cb_value1 = StringVar()
 combobox1 = ttk.Combobox(root, textvariable = cb_value1, width=40)
-combobox1.place(x=30,y=100)
+combobox1.place(x=10,y=100)
 combobox1['values'] = ["{} - {}".format(currency, d[currency][0]) for currency in  d.keys()]
 
 combobox1.bind("<<ComboboxSelected>>", sourceCurrency)
 
 cb_value2 = StringVar()
 combobox2 = ttk.Combobox(root, textvariable = cb_value2, width=40)
-combobox2.place(x=330,y=100)
+combobox2.place(x=360,y=100)
 combobox2['values'] = ["{} - {}".format(currency, d[currency][0]) for currency in  d.keys()]
 
 combobox2.bind("<<ComboboxSelected>>", targetCurrency)
@@ -79,13 +86,16 @@ cb_value3 = StringVar()
 result = Label(root, textvariable = cb_value3, background=bg_color, font=(text_font,10,"bold"))
 result.place(x=280,y=160)
 
-# creating two bottons
-btn1 = Button(root, text="Convert", command=convert, bg="#cc7fe3", activebackground="#d4abe0", font=(text_font,10), 	
-height=2, width=15)
+# creating two buttons
+btn1 = Button(root, text="Convert", command=convert, bg="#cc7fe3", activebackground="#d4abe0", font=(text_font,10), height=2, width=15)
 btn2 = Button(root, text="Close", command=quit, bg="#e3789e", activebackground="#db91ab", font=(text_font,10),height=2, width=8)
 btn1.place(x=255, y=200)
 btn2.place(x=280, y=260)
 
+# rotate button
+image = PhotoImage(file = "rotation_icon.png")
+btn3 = Button(root, image=image, command=rotation)
+btn3.place(x=300,y=80)
+
 
 root.mainloop()
-
