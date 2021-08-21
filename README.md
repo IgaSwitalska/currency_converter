@@ -27,3 +27,6 @@ To close the application press **Close**.
 
 If occures any problem with download of actual currency rates (e.g. no internet connection), the program will use data from recently downloaded table.
 If there's no problem, the program will download data directly from the website of National Bank of Poland and will overwrite xml file.
+
+## Demo
+<img src="demo/currency_converter.gif" alt="demo" width="750"/>
