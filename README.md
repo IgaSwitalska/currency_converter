@@ -13,9 +13,9 @@ You can do it via pip, writing in the command line:
 
 ``` pip install requests ```
 
-``` pip install requests bs4 ```
+``` pip install bs4 ```
 
-``` pip install requests tkinter ```
+``` pip install tkinter ```
 
 ## About the aplication
 You have to run the program from the **currency_gui.py** file.
