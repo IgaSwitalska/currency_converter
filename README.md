@@ -17,7 +17,7 @@ You can do it via pip, writing in the command line:
 
 ``` pip install tkinter ```
 
-## About the aplication
+## About the application
 You have to run the program from the **currency_gui.py** file.
 
 Then you have to choose a source currency from the first drop-down list and a target currency from the second drop-down list (you can choose from 36 currencies). 
